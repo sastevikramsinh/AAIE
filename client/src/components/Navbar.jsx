@@ -50,7 +50,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-20 border-b transition-shadow ${
+      className={`sticky top-0 z-50 border-b transition-shadow ${
         scrolled
           ? "border-secondary/10 shadow-sm bg-surface/85 backdrop-blur-xl"
           : "border-secondary/5 bg-surface/75 backdrop-blur-xl"
@@ -99,7 +99,7 @@ export default function Navbar() {
           <button
             type="button"
             className="icon-button-premium md:hidden"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen((v) => !v)}
@@ -116,12 +116,12 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.22, ease: EASINGS.gentle }}
-            className="fixed inset-0 z-30 md:hidden"
+            className="fixed inset-0 z-[999] md:hidden"
           >
             <button
               type="button"
               aria-label="Close mobile menu overlay"
-              className="absolute inset-0 bg-black/35 backdrop-blur-[2px]"
+              className="absolute inset-0 z-40 bg-black/60 backdrop-blur-sm"
               onClick={() => setMenuOpen(false)}
             />
             <motion.div
@@ -132,7 +132,7 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.32, ease: EASINGS.gentle }}
-              className="absolute right-0 top-0 h-full w-full max-w-[320px] border-l border-secondary/10 bg-surface/95 backdrop-blur-xl shadow-2xl"
+              className="absolute right-0 top-0 z-[1000] h-full w-[88%] max-w-[340px] border border-white/10 bg-black/90 backdrop-blur-xl shadow-2xl"
             >
               <div className="flex h-full flex-col px-5 py-5">
                 <div className="flex items-center justify-between">
@@ -147,15 +147,19 @@ export default function Navbar() {
                   </div>
                   <button
                     type="button"
-                    className="icon-button-premium"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/15 bg-white/5 text-white transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50"
                     onClick={() => setMenuOpen(false)}
-                    aria-label="Close menu"
+                    aria-label="Close navigation menu"
                   >
                     <X size={20} />
                   </button>
                 </div>
 
-                <div className="mt-8 flex flex-col gap-2">
+                <div className="mt-6 font-english text-xs font-semibold tracking-[0.16em] text-white/70">
+                  NAVIGATION
+                </div>
+
+                <div className="mt-3 flex flex-col gap-2">
                   {navItems.map((item) => (
                     <button
                       key={item.id}
@@ -164,14 +168,14 @@ export default function Navbar() {
                         setMenuOpen(false);
                         scrollToSection(item.id);
                       }}
-                      className="min-h-11 rounded-xl px-4 py-3 text-left font-english text-base text-secondary hover:bg-surface-elevated"
+                      className="flex min-h-12 items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-left font-english text-base font-medium text-white transition-all hover:bg-white/10 hover:text-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 active:bg-red-500/15 active:text-red-400 active:border-red-500/20"
                     >
                       {item.label}
                     </button>
                   ))}
                 </div>
 
-                <div className="mt-auto flex items-center gap-3 pt-6">
+                <div className="mt-auto flex items-center gap-3 border-t border-white/10 pt-6">
                   <AnimationToggle />
                   <ThemeToggle />
                 </div>
