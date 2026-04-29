@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { CheckCircle2, Loader2, Mail, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
 import { http } from "../api/http.js";
 import { smoothScrollToId } from "../utils/scroll.js";
+import mainLogo from "../assets/aaie-main-logo-transparent.png";
 
 function scrollToId(id) {
   smoothScrollToId(id);
@@ -159,9 +160,7 @@ export default function Footer() {
           {/* Column 1: Brand */}
           <div>
             <div className="flex items-center gap-3">
-              <div className="h-11 w-11 rounded-2xl bg-primary text-white grid place-items-center font-extrabold">
-                AA
-              </div>
+              <img src={mainLogo} alt="AAIE Logo" className="h-11 w-auto" loading="lazy" decoding="async" />
               <div>
                 <div className="font-english font-bold text-secondary text-lg">AAIE</div>
                 <div className="font-marathi text-secondary/70 text-xs">AI शिक्षण संस्था</div>
@@ -264,9 +263,7 @@ export default function Footer() {
         <div className="lg:hidden space-y-4">
           <div>
             <div className="flex items-center gap-3">
-              <div className="h-11 w-11 rounded-2xl bg-primary text-white grid place-items-center font-extrabold">
-                AA
-              </div>
+              <img src={mainLogo} alt="AAIE Logo" className="h-11 w-auto" loading="lazy" decoding="async" />
               <div>
                 <div className="font-english font-bold text-secondary text-lg">AAIE</div>
                 <div className="font-marathi text-secondary/70 text-xs">AI शिक्षण संस्था</div>

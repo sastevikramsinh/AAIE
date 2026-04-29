@@ -35,7 +35,6 @@ export default function EmailSignup() {
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [toast, setToast] = useState(null);
-  const [focused, setFocused] = useState(false);
 
   const emailRegex = useMemo(
     () => /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/,
@@ -113,7 +112,7 @@ export default function EmailSignup() {
                     : { x: 0 }
                 }
                 transition={{ duration: 0.35, ease: EASINGS.snappy }}
-                className={`field-shell ripple-surface relative flex min-h-12 items-center gap-2 rounded-xl border px-3 pt-5 pb-2 transition-colors ${
+                className={`field-shell ripple-surface relative flex min-h-12 items-center gap-2 rounded-xl border px-3 py-3 transition-colors ${
                   isSuccess
                     ? "field-shell-success"
                     : error
@@ -122,16 +121,6 @@ export default function EmailSignup() {
                 }`}
               >
                 <Mail size={18} className="text-secondary/70" aria-hidden />
-                <label
-                  htmlFor="email"
-                  className={`pointer-events-none absolute left-10 font-english text-sm text-secondary/70 transition-all ${
-                    focused || email
-                      ? "top-1.5 text-[11px] text-primary"
-                      : "top-1/2 -translate-y-1/2"
-                  }`}
-                >
-                  तुमचा email / your@email.com
-                </label>
                 <input
                   id="email"
                   name="email"
@@ -141,13 +130,11 @@ export default function EmailSignup() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  onFocus={() => setFocused(true)}
-                  onBlur={() => setFocused(false)}
                   aria-invalid={Boolean(error)}
                   aria-describedby={error ? "email-error" : undefined}
                   disabled={isSuccess}
-                  className="w-full bg-transparent text-[16px] font-english outline-none placeholder:text-transparent disabled:opacity-60"
-                  placeholder="."
+                  className="w-full bg-transparent text-[16px] font-english outline-none placeholder:text-secondary/50 disabled:opacity-60"
+                  placeholder="तुमचा email / your@email.com"
                 />
                 {isSuccess ? (
                   <CheckCircle2 size={18} className="text-emerald-500" aria-hidden="true" />

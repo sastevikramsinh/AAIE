@@ -135,7 +135,7 @@ export default function VisionSection() {
               “इंग्रजीचा अडथळा कोणाच्या तरी स्वप्नांना थांबवू शकत नाही.”
             </blockquote>
             <div className="mt-5 font-english text-sm text-secondary/70">
-              — विक्रमसिंह सास्ते, Founder
+              — विक्रमसिंह सस्ते, Founder
             </div>
           </div>
         </Reveal>

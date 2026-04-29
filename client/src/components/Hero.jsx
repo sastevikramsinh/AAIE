@@ -333,7 +333,7 @@ function HeroContent({
             transition={{ duration: 0.55, delay: 0.55 }}
           >
             आईच्या{" "}
-            <span className="bg-gradient-to-r from-primary via-highlight to-primary bg-clip-text text-transparent">
+            <span className="text-primary">
               मायेने
             </span>
           </motion.span>

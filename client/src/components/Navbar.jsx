@@ -5,6 +5,7 @@ import AnimationToggle from "./AnimationToggle.jsx";
 import ThemeToggle from "./ThemeToggle.jsx";
 import { smoothScrollToId } from "../utils/scroll.js";
 import { EASINGS } from "../utils/animationPreferences.js";
+import mainLogo from "../assets/aaie-main-logo-transparent.png";
 
 const navItems = [
   { label: "Home", id: "home" },
@@ -65,19 +66,14 @@ export default function Navbar() {
           className="text-left"
           aria-label="Go to top"
         >
-          {/* Logo height: 40px desktop, 32px mobile */}
           <div className="flex items-center gap-2">
-            <div className="grid place-items-center rounded-full bg-primary text-white font-extrabold h-8 w-8 md:h-10 md:w-10">
-              AA
-            </div>
-            <div className="leading-tight ml-2">
-              <div className="font-english font-bold text-secondary text-base md:text-lg">
-                AAIE
-              </div>
-              <div className="hidden sm:block font-marathi text-secondary/80 text-[10px] md:text-xs">
-                AI शिक्षण संस्था
-              </div>
-            </div>
+            <img
+              src={mainLogo}
+              alt="AAIE Logo"
+              className="h-10 w-auto md:h-12"
+              loading="eager"
+              decoding="async"
+            />
           </div>
         </button>
 
@@ -141,13 +137,13 @@ export default function Navbar() {
               <div className="flex h-full flex-col px-5 py-5">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="grid h-8 w-8 place-items-center rounded-full bg-primary text-white font-extrabold">
-                      AA
-                    </div>
-                    <div>
-                      <div className="font-english font-bold text-secondary">AAIE</div>
-                      <div className="font-marathi text-secondary/70 text-xs">Menu</div>
-                    </div>
+                    <img
+                      src={mainLogo}
+                      alt="AAIE Logo"
+                      className="h-10 w-auto"
+                      loading="eager"
+                      decoding="async"
+                    />
                   </div>
                   <button
                     type="button"

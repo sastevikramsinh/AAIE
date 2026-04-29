@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Instagram, Linkedin, Mail, Twitter, Youtube } from "lucide-react";
 import Reveal from "./Reveal.jsx";
 import SectionDivider from "./SectionDivider.jsx";
+import founderPhoto from "../assets/founder-photo.png";
 
 function SocialPill({ Icon, label, href, variant = "secondary" }) {
   const base =
@@ -52,31 +53,13 @@ export default function FounderSection() {
                 transition={{ type: "spring", stiffness: 240, damping: 22 }}
                 className="card-premium relative overflow-hidden rounded-3xl border border-secondary/10 bg-surface/60 shadow-sm"
               >
-                <div
-                  className="aspect-square w-full"
-                  role="img"
-                  aria-label="Founder photo placeholder"
-                >
-                  <div
-                    className="h-full w-full"
-                    style={{
-                      backgroundImage:
-                        "radial-gradient(circle at 30% 20%, rgba(220,38,38,0.25), transparent 45%), radial-gradient(circle at 80% 30%, rgba(245,158,11,0.18), transparent 45%), radial-gradient(circle at 50% 100%, rgba(244,114,182,0.18), transparent 55%), linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.15))",
-                    }}
-                  />
-
-                  <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
-                    <div className="font-english font-black text-secondary text-4xl sm:text-5xl tracking-[-0.04em]">
-                      Vikram
-                    </div>
-                    <div className="mt-2 font-marathi text-secondary/80 text-lg">
-                      विक्रमसिंह
-                    </div>
-                    <div className="mt-1 font-english text-secondary/60 text-sm sm:text-xs">
-                      Professional photo (placeholder)
-                    </div>
-                  </div>
-                </div>
+                <img
+                  src={founderPhoto}
+                  alt="Founder विक्रमसिंह सस्ते"
+                  className="aspect-square w-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
 
                 {/* corner badges */}
                 <div className="absolute left-4 top-4 flex flex-col gap-2">
@@ -99,7 +82,7 @@ export default function FounderSection() {
                   MEET THE FOUNDER
                 </div>
                 <h2 className="mt-4 font-marathi text-secondary text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.1] tracking-[-0.02em]">
-                  विक्रमसिंह सास्ते
+                  विक्रमसिंह सस्ते
                 </h2>
                 <div className="mt-2 font-english text-secondary/80 font-semibold">
                   Founder, AAIE | HOD - AIML Department
