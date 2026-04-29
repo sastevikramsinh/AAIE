@@ -1,0 +1,22 @@
+{
+  "name": "AAIE - Marathi AI Education",
+  "short_name": "AAIE",
+  "description": "मराठीत AI शिक्षण — विद्यार्थी, शिक्षक आणि सर्वांसाठी.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAFAFA",
+  "theme_color": "#DC2626",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+

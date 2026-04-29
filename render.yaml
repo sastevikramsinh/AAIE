@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: aaie-api
+    runtime: node
+    region: singapore
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: CLIENT_URL
+        value: https://aaie.org.in
+      - key: CLIENT_URLS
+        value: https://aaie.org.in,https://www.aaie.org.in
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DBNAME
+        value: aaie
+      - key: JWT_SECRET
+        sync: false
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      - key: EMAIL_FROM
+        value: AAIE <founder@aaie.org.in>
+      - key: FOUNDER_EMAIL
+        value: founder@aaie.org.in
+      - key: ZOHO_SMTP_HOST
+        value: smtp.zoho.in
+      - key: ZOHO_SMTP_PORT
+        value: 465
+

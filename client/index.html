@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="mr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Primary Meta Tags -->
+    <title>AAIE - Marathi AI Education | आईच्या मायेने, AI चं शिक्षण</title>
+    <meta name="title" content="AAIE - Marathi AI Education" />
+    <meta
+      name="description"
+      content="महाराष्ट्रातील पहिली मराठी AI शिक्षण संस्था. विद्यार्थी, शिक्षक आणि सामान्य लोकांसाठी मराठीत AI tutorials, workshops आणि resources."
+    />
+    <meta
+      name="keywords"
+      content="Marathi AI, AI in Marathi, मराठी AI, AI Education India, AAIE, Vikramsinh Saste"
+    />
+    <meta name="author" content="Vikramsinh Saste" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://aaie.org.in/" />
+    <meta name="theme-color" content="#DC2626" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0A0A0A" media="(prefers-color-scheme: dark)" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://aaie.org.in/" />
+    <meta property="og:title" content="AAIE - मराठीत AI शिक्षण" />
+    <meta
+      property="og:description"
+      content="मराठीत AI शिक्षण — विद्यार्थी, शिक्षक आणि सर्वांसाठी"
+    />
+    <meta property="og:image" content="https://aaie.org.in/og-image.svg" />
+    <meta property="og:locale" content="mr_IN" />
+    <meta property="og:locale:alternate" content="en_IN" />
+
+    <!-- Twitter Card -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://aaie.org.in/" />
+    <meta property="twitter:title" content="AAIE - Marathi AI Education" />
+    <meta property="twitter:description" content="मराठीत AI शिक्षण" />
+    <meta property="twitter:image" content="https://aaie.org.in/twitter-image.svg" />
+    <meta name="twitter:title" content="AAIE - मराठीत AI शिक्षण" />
+    <meta
+      name="twitter:description"
+      content="Practical Marathi AI education from Pune. Join AAIE from Day 1."
+    />
+
+    <!-- hreflang -->
+    <link rel="alternate" hreflang="mr-IN" href="https://aaie.org.in/" />
+    <link rel="alternate" hreflang="en-IN" href="https://aaie.org.in/" />
+    <link rel="alternate" hreflang="x-default" href="https://aaie.org.in/" />
+
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- Theme preference (FOUC prevention). Runs before React loads. -->
+    <script>
+      (function () {
+        var STORAGE_KEY = "aaie-theme";
+        var stored = null;
+        try {
+          stored = localStorage.getItem(STORAGE_KEY);
+        } catch (e) {}
+
+        var preference = stored || "system"; // "light" | "dark" | "system"
+        var systemDark = false;
+        try {
+          systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        } catch (e) {}
+
+        var resolved = preference === "system" ? (systemDark ? "dark" : "light") : preference;
+        document.documentElement.dataset.theme = resolved;
+      })();
+    </script>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "name": "AAIE (Association of AI Educators)",
+            "url": "https://aaie.org.in/",
+            "logo": "https://aaie.org.in/android-chrome-512x512.png",
+            "foundingDate": "2026",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Pune",
+              "addressRegion": "Maharashtra",
+              "addressCountry": "IN"
+            },
+            "sameAs": [
+              "https://www.linkedin.com/",
+              "https://www.youtube.com/",
+              "https://www.instagram.com/"
+            ]
+          },
+          {
+            "@type": "Person",
+            "name": "Vikramsinh Saste",
+            "jobTitle": "Founder, AAIE",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Pune",
+              "addressRegion": "Maharashtra",
+              "addressCountry": "IN"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "name": "AAIE",
+            "url": "https://aaie.org.in/",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://aaie.org.in/?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="font-english">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
