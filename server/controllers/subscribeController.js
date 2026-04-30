@@ -1,52 +1,78 @@
 import { body } from "express-validator";
-import { Subscriber } from "../models/Subscriber.js";
+import { createClient } from "@supabase/supabase-js";
+import { Resend } from "resend";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/apiError.js";
-import { sendEmail } from "../services/emailService.js";
-import { getWelcomeTemplate } from "../services/emailTemplates.js";
 import { clearCache } from "../utils/cache.js";
+import { logError } from "../utils/logger.js";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
+const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const resendApiKey = process.env.RESEND_API_KEY;
+
+const supabase =
+  supabaseUrl && supabaseServiceRoleKey
+    ? createClient(supabaseUrl, supabaseServiceRoleKey)
+    : null;
+const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
 export const subscribeValidation = [
   body("email").isEmail().withMessage("Valid email is required").normalizeEmail(),
-  body("source")
-    .optional()
-    .isIn(["hero", "footer", "cta"])
-    .withMessage("Invalid source"),
-  body("preferences.language").optional().isString(),
-  body("preferences.topics").optional().isArray(),
+  body("language").optional().isIn(["mr", "en"]).withMessage("Invalid language"),
 ];
 
 export const subscribe = asyncHandler(async (req, res) => {
-  const { email, source = "hero", preferences } = req.body;
+  const { email, language = "en" } = req.body;
 
-  const existing = await Subscriber.findOne({ email }).lean();
-  if (existing && !existing.unsubscribed) {
-    throw new ApiError(409, "This email is already subscribed.");
+  if (!supabase) {
+    throw new ApiError(
+      500,
+      "Waitlist service is not configured. Missing Supabase environment variables.",
+    );
   }
 
-  const subscriber = await Subscriber.findOneAndUpdate(
-    { email },
+  const { error } = await supabase.from("waitlist").insert([
     {
       email,
-      source,
-      preferences: {
-        language: preferences?.language || "mr",
-        topics: preferences?.topics || [],
-      },
-      subscribedAt: new Date(),
-      unsubscribed: false,
+      language,
     },
-    { upsert: true, new: true, setDefaultsOnInsert: true },
-  );
+  ]);
 
-  const welcome = getWelcomeTemplate({ email: subscriber.email });
-  await sendEmail({ to: subscriber.email, subject: welcome.subject, html: welcome.html });
+  if (error) {
+    if (error.code === "23505") {
+      throw new ApiError(409, "Already registered");
+    }
+    logError("Supabase waitlist insert failed", error, { email });
+    throw new ApiError(500, "Could not save email");
+  }
+
+  if (resend) {
+    try {
+      await resend.emails.send({
+        from: process.env.RESEND_FROM_EMAIL || "no-reply@aaie.org.in",
+        to: email,
+        subject: "🎉 AAIE Waitlist मध्ये स्वागत आहे!",
+        html: `
+          <div style="font-family: sans-serif; max-width: 600px; margin: auto;">
+            <h2>आईच्या मायेने — AI Education for Everyone</h2>
+            <p>नमस्कार! 🙏</p>
+            <p>तुम्ही AAIE च्या waitlist मध्ये successfully join केले आहे.</p>
+            <p>Launch होताच तुम्हाला सर्वात आधी कळवले जाईल.</p>
+            <br/>
+            <p>— AAIE Team</p>
+            <hr/>
+            <small>महाराष्ट्रातील पहिली मराठी AI शिक्षण संस्था</small>
+          </div>
+        `,
+      });
+    } catch (emailError) {
+      // Do not fail subscription if email sending fails.
+      logError("Resend welcome email failed", emailError, { email });
+    }
+  }
 
   clearCache("public-stats");
 
-  return res.status(201).json({
-    message: "Subscription successful.",
-    data: { id: subscriber._id, email: subscriber.email, source: subscriber.source },
-  });
+  return res.status(200).json({ success: true });
 });
 

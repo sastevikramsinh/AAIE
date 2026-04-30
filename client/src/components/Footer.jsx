@@ -36,7 +36,7 @@ function FooterNewsletterMini() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
-  const emailRegex = useMemo(() => /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, []);
+  const emailRegex = useMemo(() => /^[^\s@]+@[^\s@]+\.[^\s@]+$/, []);
 
   async function onSubmit(e) {
     e.preventDefault();

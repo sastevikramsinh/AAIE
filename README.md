@@ -36,6 +36,35 @@ This monorepo contains:
    npm run dev
    ```
 
+## Waitlist Setup (Supabase + Resend)
+
+1. Create the `waitlist` table in Supabase SQL editor:
+   ```sql
+   CREATE TABLE waitlist (
+     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+     email TEXT NOT NULL UNIQUE,
+     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+     language TEXT DEFAULT 'en'
+   );
+
+   ALTER TABLE waitlist ENABLE ROW LEVEL SECURITY;
+
+   CREATE POLICY "Allow public insert" ON waitlist
+     FOR INSERT TO anon
+     WITH CHECK (true);
+
+   CREATE POLICY "Allow service role read" ON waitlist
+     FOR SELECT TO service_role
+     USING (true);
+   ```
+
+2. Add these env vars in `server/.env` and deployment environment:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `RESEND_API_KEY`
+   - `RESEND_FROM_EMAIL`
+
 ## Available Scripts
 - `npm run dev` - Runs both `client` and `server` concurrently
 - `npm run client` - Runs only the frontend

@@ -37,7 +37,7 @@ export default function EmailSignup() {
   const [toast, setToast] = useState(null);
 
   const emailRegex = useMemo(
-    () => /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/,
+    () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     [],
   );
 
@@ -74,14 +74,19 @@ export default function EmailSignup() {
 
     setStatus("loading");
     try {
-      // Next prompt will implement this backend endpoint.
       await http.post("/api/subscribe", { email: trimmed });
       setStatus("success");
-      setSuccessMessage("धन्यवाद! आम्ही लवकरच भेटू.");
-      setToast({ type: "success", message: "Thanks! 🌱" });
+      setSuccessMessage("धन्यवाद! Launch होताच कळवू 🙏");
+      setToast({ type: "success", message: "धन्यवाद! Launch होताच कळवू 🙏" });
       setEmail("");
     } catch (err) {
       setStatus("idle");
+      const statusCode = err?.response?.status;
+      if (statusCode === 409) {
+        setError("हे email आधीच registered आहे!");
+        setToast({ type: "error", message: "हे email आधीच registered आहे!" });
+        return;
+      }
       setToast({
         type: "error",
         message:
