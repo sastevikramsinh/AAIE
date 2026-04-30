@@ -159,9 +159,8 @@ export default function Navbar() {
                 </div>
 
                 <div className="mt-4">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-neutral-300 bg-white px-3 py-1.5 text-sm font-english text-neutral-800 dark:border-white/20 dark:bg-[#111111] dark:text-white">
-                    <span className="inline-block h-2.5 w-2.5 rounded-full bg-red-500" />
-                    <span>🌱 Now Live · 2026 मध्ये सुरुवात</span>
+                  <div className="inline-flex items-center rounded-full border border-neutral-300 bg-white px-3 py-1.5 text-sm font-english text-neutral-800 dark:border-white/20 dark:bg-[#111111] dark:text-white">
+                    <span>❤️ AI Awareness Movement</span>
                   </div>
                 </div>
 

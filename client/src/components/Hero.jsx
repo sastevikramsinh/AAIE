@@ -297,27 +297,7 @@ function HeroContent({
         animate="show"
         variants={badgeVariants}
       >
-        <span className="relative inline-flex h-2.5 w-2.5">
-          <motion.span
-            className="absolute inset-0 rounded-full bg-primary"
-            aria-hidden="true"
-            animate={
-              reducedMotion
-                ? undefined
-                : { scale: [1, 1.5, 1], opacity: [1, 0.6, 1] }
-            }
-            transition={
-              reducedMotion
-                ? undefined
-                : {
-                    duration: 1.6,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }
-            }
-          />
-        </span>
-        <span className="leading-none">🌱 Now Live · 2026 मध्ये सुरुवात</span>
+        <span className="leading-none">❤️ AI Awareness Momnet</span>
       </motion.button>
 
       <header className="mt-6 max-w-[980px] sm:mt-8">
