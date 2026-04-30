@@ -162,7 +162,7 @@ export default function EmailSignup() {
               <button
                 type="submit"
                 disabled={isLoading || isSuccess}
-                className="btn-premium-primary ripple-surface inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-[16px] font-english font-semibold text-white sm:w-full"
+                className="ripple-surface inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-primary/70 bg-primary px-5 py-3 text-[16px] font-english font-bold text-white shadow-[0_10px_30px_rgba(220,38,38,0.28)] transition-all hover:bg-red-700 hover:shadow-[0_14px_36px_rgba(220,38,38,0.35)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 dark:border-red-400/70 dark:bg-red-600 dark:hover:bg-red-500 sm:w-full"
               >
                 {isLoading ? (
                   <>
