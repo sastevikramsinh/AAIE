@@ -297,7 +297,7 @@ function HeroContent({
         animate="show"
         variants={badgeVariants}
       >
-        <span className="leading-none">❤️ AI Awareness Momnet</span>
+        <span className="leading-none">❤️ AI Awareness Movement</span>
       </motion.button>
 
       <header className="mt-6 max-w-[980px] sm:mt-8">
