@@ -67,6 +67,17 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Fixed navbar: keep in-page anchor targets visible below the bar */
+main section[id] {
+  scroll-margin-top: 4rem;
+}
+
+@media (min-width: 768px) {
+  main section[id] {
+    scroll-margin-top: 4.5rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

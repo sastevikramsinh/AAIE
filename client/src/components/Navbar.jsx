@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import AnimationToggle from "./AnimationToggle.jsx";
 import ThemeToggle from "./ThemeToggle.jsx";
-import { smoothScrollToId } from "../utils/scroll.js";
+import { getWindowScrollY, smoothScrollToId, subscribeToGlobalScroll } from "../utils/scroll.js";
 import { EASINGS } from "../utils/animationPreferences.js";
 import mainLogo from "../assets/aaie-main-logo-transparent.png";
 
@@ -23,10 +23,9 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const SCROLL_THRESHOLD = 10;
+    const onScroll = () => setScrolled(getWindowScrollY() >= SCROLL_THRESHOLD);
+    return subscribeToGlobalScroll(onScroll);
   }, []);
 
   useEffect(() => {
@@ -50,10 +49,10 @@ export default function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b transition-shadow ${
+      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ease-in-out ${
         scrolled
-          ? "border-secondary/10 shadow-sm bg-surface/85 backdrop-blur-xl"
-          : "border-secondary/5 bg-surface/75 backdrop-blur-xl"
+          ? "border-b border-[rgba(0,0,0,0.08)] bg-[rgba(255,255,255,0.85)] backdrop-blur-[12px] dark:border-white/[0.08] dark:bg-[rgba(15,15,15,0.85)]"
+          : "border-b border-transparent bg-transparent"
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">

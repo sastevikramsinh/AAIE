@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "./components/Navbar.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import CustomCursor from "./components/CustomCursor.jsx";
+import BackToTopButton from "./components/BackToTopButton.jsx";
 import { EASINGS } from "./utils/animationPreferences.js";
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
       transition={{ duration: 0.3, ease: EASINGS.gentle }}
     >
       <CustomCursor />
+      <BackToTopButton />
       <motion.div
         initial="hidden"
         animate="show"
@@ -32,6 +34,7 @@ export default function App() {
         <AnimatePresence mode="wait">
           <motion.main
             key={window.location.pathname}
+            className="pt-16 md:pt-[72px]"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
