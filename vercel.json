@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "installCommand": "npm install",
+  "buildCommand": "npm run build --workspace client",
+  "outputDirectory": "client/dist",
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://api.aaie.org.in/api/$1"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "aaitoai.com"
+        }
+      ],
+      "destination": "https://aaie.org.in/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.aaitoai.com"
+        }
+      ],
+      "destination": "https://aaie.org.in/$1",
+      "permanent": true
+    }
+  ]
+}

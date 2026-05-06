@@ -22,6 +22,13 @@ const allowedOrigins = (process.env.CLIENT_URLS || process.env.CLIENT_URL || "")
 const defaultOrigin = "http://localhost:5173";
 if (!allowedOrigins.includes(defaultOrigin)) allowedOrigins.push(defaultOrigin);
 
+// If Render env is incomplete, still allow the public site (direct API calls from browser).
+if (process.env.NODE_ENV === "production") {
+  for (const origin of ["https://aaie.org.in", "https://www.aaie.org.in"]) {
+    if (!allowedOrigins.includes(origin)) allowedOrigins.push(origin);
+  }
+}
+
 app.use(
   cors({
     origin: allowedOrigins,
