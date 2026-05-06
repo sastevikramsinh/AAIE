@@ -74,10 +74,14 @@ export default function EmailSignup() {
 
     setStatus("loading");
     try {
-      await http.post("/api/subscribe", { email: trimmed });
+      const response = await http.post("/api/subscribe", { email: trimmed });
+      const emailSent = Boolean(response?.data?.emailSent);
       setStatus("success");
-      setSuccessMessage("धन्यवाद! Launch होताच कळवू 🙏");
-      setToast({ type: "success", message: "धन्यवाद! Launch होताच कळवू 🙏" });
+      const successText = emailSent
+        ? "धन्यवाद! कृपया inbox तपासा — confirmation email पाठवला आहे."
+        : "धन्यवाद! तुम्ही waitlist मध्ये आहात. Launch होताच कळवू 🙏";
+      setSuccessMessage(successText);
+      setToast({ type: "success", message: successText });
       setEmail("");
     } catch (err) {
       setStatus("idle");

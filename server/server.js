@@ -43,20 +43,18 @@ app.use(notFound);
 app.use(errorHandler);
 
 async function start() {
-  try {
-    if (process.env.MONGODB_URI) {
-      await connectMongo();
-    } else {
-      console.warn("MONGODB_URI is not set; starting server without DB.");
-    }
-
-    app.listen(PORT, () => {
-      console.log(`Server listening on port ${PORT}`);
+  if (process.env.MONGODB_URI) {
+    // Start API immediately; connect DB in background so non-DB routes still work.
+    connectMongo().catch((err) => {
+      console.error("MongoDB unavailable; continuing without DB:", err?.message || err);
     });
-  } catch (err) {
-    console.error("Failed to start server:", err?.message || err);
-    process.exit(1);
+  } else {
+    console.warn("MONGODB_URI is not set; starting server without DB.");
   }
+
+  app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
 }
 
 start();

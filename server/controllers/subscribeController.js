@@ -23,6 +23,7 @@ export const subscribeValidation = [
 
 export const subscribe = asyncHandler(async (req, res) => {
   const { email, language = "en" } = req.body;
+  let emailSent = false;
 
   if (!supabase) {
     throw new ApiError(
@@ -48,8 +49,8 @@ export const subscribe = asyncHandler(async (req, res) => {
 
   if (resend) {
     try {
-      await resend.emails.send({
-        from: process.env.RESEND_FROM_EMAIL || "no-reply@aaie.org.in",
+      const emailPayload = {
+        from: process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev",
         to: email,
         subject: "🎉 AAIE Waitlist मध्ये स्वागत आहे!",
         html: `
@@ -64,7 +65,29 @@ export const subscribe = asyncHandler(async (req, res) => {
             <small>महाराष्ट्रातील पहिली मराठी AI शिक्षण संस्था</small>
           </div>
         `,
-      });
+      };
+      let resendResult = await resend.emails.send(emailPayload);
+
+      const resendErrorMessage = resendResult?.error?.message || "";
+      const needsDevFallback =
+        resendResult?.error?.name === "validation_error" &&
+        resendErrorMessage.includes("domain is not verified") &&
+        emailPayload.from !== "onboarding@resend.dev";
+
+      if (needsDevFallback) {
+        resendResult = await resend.emails.send({
+          ...emailPayload,
+          from: "onboarding@resend.dev",
+        });
+      }
+
+      if (resendResult?.error) {
+        logError("Resend returned delivery error", resendResult.error, { email });
+      } else if (resendResult?.data?.id) {
+        emailSent = true;
+      } else {
+        logError("Resend returned unexpected response", resendResult, { email });
+      }
     } catch (emailError) {
       // Do not fail subscription if email sending fails.
       logError("Resend welcome email failed", emailError, { email });
@@ -73,6 +96,6 @@ export const subscribe = asyncHandler(async (req, res) => {
 
   clearCache("public-stats");
 
-  return res.status(200).json({ success: true });
+  return res.status(200).json({ success: true, emailSent });
 });
 
