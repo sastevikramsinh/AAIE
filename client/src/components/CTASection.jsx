@@ -9,6 +9,13 @@ function scrollToId(id) {
   smoothScrollToId(id);
 }
 
+function scrollToSubscribeForm() {
+  smoothScrollToId("email-signup");
+  window.setTimeout(() => {
+    document.getElementById("email")?.focus({ preventScroll: true });
+  }, 150);
+}
+
 export default function CTASection() {
   const reducedMotion = useReducedMotion();
   const particles = useMemo(
@@ -127,7 +134,7 @@ export default function CTASection() {
             <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
               <button
                 type="button"
-                onClick={() => scrollToId("email-signup")}
+                onClick={scrollToSubscribeForm}
                 className="btn-premium-secondary ripple-surface inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 font-english font-semibold text-primary"
               >
                 Subscribe Newsletter <ArrowRight size={18} />

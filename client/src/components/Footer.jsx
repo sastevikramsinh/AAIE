@@ -35,12 +35,14 @@ function FooterNewsletterMini() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
   const emailRegex = useMemo(() => /^[^\s@]+@[^\s@]+\.[^\s@]+$/, []);
 
   async function onSubmit(e) {
     e.preventDefault();
     setError("");
+    setMessage("");
 
     const trimmed = email.trim();
     if (!trimmed) {
@@ -55,12 +57,17 @@ function FooterNewsletterMini() {
 
     setLoading(true);
     try {
-      // Next prompt will implement the endpoint.
       await http.post("/api/subscribe", { email: trimmed });
       setSuccess(true);
+      setMessage("Thanks! You’re on the waitlist.");
       setEmail("");
-    } catch {
-      setError("Could not subscribe. Try again later.");
+    } catch (err) {
+      const statusCode = err?.response?.status;
+      if (statusCode === 409) {
+        setError("This email is already subscribed.");
+      } else {
+        setError("Could not subscribe. Try again later.");
+      }
     } finally {
       setLoading(false);
     }
@@ -85,13 +92,13 @@ function FooterNewsletterMini() {
           disabled={success || loading}
           className="btn-premium-primary ripple-surface inline-flex min-h-12 items-center justify-center rounded-xl bg-primary px-4 text-base sm:text-sm font-english font-semibold text-white disabled:opacity-60"
         >
-          {loading ? <Loader2 size={18} className="animate-spin" /> : success ? <CheckCircle2 size={18} /> : "Join"}
+          {loading ? <Loader2 size={18} className="animate-spin" /> : success ? <CheckCircle2 size={18} /> : "Subscribe"}
         </button>
       </form>
       {error ? <div className="mt-2 text-sm font-english text-red-600">{error}</div> : null}
       {success ? (
         <div className="mt-2 text-sm font-english text-emerald-600">
-          Thanks! 🌱
+          {message || "Thanks! 🌱"}
         </div>
       ) : null}
     </div>

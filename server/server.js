@@ -50,7 +50,10 @@ app.use(notFound);
 app.use(errorHandler);
 
 async function start() {
-  if (process.env.MONGODB_URI) {
+  const mongoUri = process.env.MONGODB_URI;
+  const hasRealMongoUri = mongoUri && !mongoUri.includes("...");
+
+  if (hasRealMongoUri) {
     // Start API immediately; connect DB in background so non-DB routes still work.
     connectMongo().catch((err) => {
       console.error("MongoDB unavailable; continuing without DB:", err?.message || err);
