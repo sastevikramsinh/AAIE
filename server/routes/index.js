@@ -4,6 +4,7 @@ import subscribeRouter from "./subscribe.js";
 import contactRouter from "./contact.js";
 import statsRouter from "./stats.js";
 import workshopsRouter from "./workshops.js";
+import diagRouter from "./diag.js";
 
 const apiRouter = Router();
 
@@ -12,6 +13,7 @@ apiRouter.use(subscribeRouter);
 apiRouter.use(contactRouter);
 apiRouter.use(statsRouter);
 apiRouter.use(workshopsRouter);
+apiRouter.use(diagRouter);
 
 export default apiRouter;
 
